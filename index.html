@@ -93,9 +93,6 @@
         }
         .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
-        /* =============================================
-           HERO PHOTO — FOTO 1 AJUSTADA
-           ============================================= */
         .hero-photo-wrapper {
             display: flex;
             justify-content: center;
@@ -105,7 +102,6 @@
             position: relative;
             width: 100%;
             max-width: 400px;
-            /* Container com altura fixa e overflow hidden */
             height: 560px;
             border-radius: 24px 24px 0 0;
             overflow: hidden;
@@ -115,7 +111,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Foto 1 tem fundo branco e figura centralizada — posicionar no topo */
             object-position: center top;
             display: block;
         }
@@ -147,41 +142,61 @@
         .service-desc { font-size: 14px; color: var(--cinza-texto); line-height: 1.6; }
 
         /* =============================================
-           ABOUT — FOTOS 1 E 2 AJUSTADAS
+           ABOUT — APENAS FOTO 2 CENTRALIZADA
            ============================================= */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-        /* Card das fotos com altura fixa e overflow hidden */
-        .about-photo {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(26,58,92,0.12);
-            /* Altura fixa para o container */
-            height: 300px;
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
-        .about-photo img {
+
+        /* Wrapper centraliza o único card de foto */
+        .about-photos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Card único — maior, mais destaque */
+        .about-photo-single {
+            width: 100%;
+            max-width: 420px;
+            height: 500px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow:
+                0 20px 60px rgba(26,58,92,0.18),
+                0 4px 16px rgba(26,58,92,0.10);
+            border: 4px solid var(--azul-suave);
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+        .about-photo-single::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: linear-gradient(180deg, transparent 60%, rgba(26,58,92,0.12) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .about-photo-single:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow:
+                0 32px 80px rgba(26,58,92,0.22),
+                0 8px 24px rgba(26,58,92,0.14);
+        }
+        .about-photo-single img {
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
             display: block;
             transition: transform 0.4s;
         }
-        .about-photo:hover img { transform: scale(1.04); }
-
-        /* Foto 1 (fundo branco, figura centralizada) */
-        .about-photo:first-child {
-            margin-top: 32px;
-            /* Centraliza a figura no quadrado */
-        }
-        .about-photo:first-child img {
-            object-fit: cover;
-            object-position: center top;
-        }
-
-        /* Foto 2 (homem com notebook, fundo azul escuro) */
-        .about-photo:last-child img {
-            object-fit: cover;
-            object-position: center 20%;
+        .about-photo-single:hover img {
+            transform: scale(1.04);
         }
 
         .about-text { font-size: 16px; color: var(--cinza-texto); line-height: 1.8; margin-bottom: 16px; }
@@ -271,10 +286,13 @@
                 border-radius: 20px 20px 0 0;
             }
             .services-grid { grid-template-columns: 1fr; gap: 20px; }
-            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-grid { grid-template-columns: 1fr; gap: 36px; }
             .about-photos { order: -1; }
-            .about-photo { height: 220px; }
-            .about-photo:first-child { margin-top: 0; }
+            .about-photo-single {
+                max-width: 320px;
+                height: 360px;
+                border-radius: 20px;
+            }
             .contact-grid { grid-template-columns: 1fr; gap: 40px; }
             .contact-form { padding: 28px 24px; }
             section { padding: 60px 20px; }
@@ -283,7 +301,7 @@
         @media (max-width: 480px) {
             .hero-title { font-size: 32px; }
             .btn-primary, .btn-secondary { padding: 12px 22px; font-size: 14px; }
-            .about-photo { height: 170px; }
+            .about-photo-single { height: 300px; max-width: 280px; }
             .hero-photo-card { height: 360px; }
         }
     </style>
@@ -376,14 +394,14 @@
     <section id="sobre">
         <div class="section-container">
             <div class="about-grid">
+
+                <!-- FOTO 2 — único quadrado, centralizado -->
                 <div class="about-photos fade-in">
-                    <div class="about-photo">
-                        <img src="foto1.jpeg" alt="Vitor Borborema">
-                    </div>
-                    <div class="about-photo">
+                    <div class="about-photo-single">
                         <img src="foto2.jpeg" alt="Vitor Borborema em consulta">
                     </div>
                 </div>
+
                 <div class="about-content fade-in">
                     <span class="section-tag">Sobre mim</span>
                     <h2 class="section-title">Olá, sou o Vitor!</h2>
@@ -408,6 +426,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
